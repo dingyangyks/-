@@ -1,0 +1,113 @@
+ #circle{
+    width: 280px;
+    height:280px;
+    border: 10px solid #fff;
+    margin: 150px auto;
+    border-radius: 50%;
+    box-shadow:0px 0px 50px rgb(102, 102, 102);
+    position: relative;
+}
+#in_circle{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 96%;
+    height: 96%;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #ddd;
+}
+#circleCenter{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 8%;
+    height: 8%;
+    background-color: #5b5b5b;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow:0px 0px 20px #000;
+}
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;   
+    margin: 0;
+    padding: 0;
+}
+#red_center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6%;
+    height: 6%;
+    background-color: #aa0000;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow:0px 0px 20px #000;
+}
+#point_circle{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 95%;
+    height: 95%;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.twelve{
+    position: absolute;
+    left: 50%; 
+    transform: translate(-50%,0);
+}
+
+.three{
+    position: absolute;
+    top: 50%; 
+    left: 95%;
+    transform: translate(0,-50%);
+} 
+
+#hour{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 80px;
+    margin-left: -6px;
+    margin-top: -90px;
+    background-color: #5b5b5b;
+    border-radius: 25px;
+    transform:rotate(0deg);
+    transform-origin:7.5px 90px;
+    box-shadow:0px 0px 8px #000;
+}
+
+#minutes{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 100px;
+    margin-left: -5px;
+    margin-top: -105px;
+    background-color: #5b5b5b;
+    border-radius: 25px;
+    transform:rotate(0deg);
+    transform-origin:5px 105px;
+    box-shadow:0px 0px 8px #000;
+}
+
+#second{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -1px;
+    margin-top: -115px;
+    width: 2px;
+    height: 130px;
+    transform: rotate(0deg);
+    background-color: #aa0000;
+    transform-origin: 1px 115px;
+    box-shadow:0px 0px 8px #ccc;
+}
