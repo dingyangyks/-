@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>newnew</title>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./public.css">
+</head>
+
+<body>
+    <!--世界时钟-->
+    <div class="plate show">
+        <div class="in_circle">
+            <div class="point_circle">
+                <p class="twelve">12</p>
+                <p class="three">3</p>
+            </div>
+            <div class="circleCenter"></div>
+            <div class="red_center"></div>
+            <div class="hour"></div>
+            <div class="minutes"></div>
+            <div class="second"></div>
+        </div>
+        <div class="score" style="font-size:30px;">本地时间</div>
+    </div>
+
+    <!--闹钟-->
+    <div class="plate">
+        <div class="in_circle" style="background-color:#3c3c3c;">
+            <div class="point_circle" style="color:#fff">
+                <p class="twelve">12</p>
+                <p class="three">3</p>
+            </div>
+            <div class="circleCenter" style="background-color:#fff;"></div>
+            <div class="red_center"></div>
+            <div class="hour" style="background-color:#fff;"></div>
+            <div class="minutes" style="background-color:#fff;"></div>
+            <div class="second"></div>
+        </div>
+    </div>
+
+    <!--秒表-->
+    <div class="plate">
+        <div class="in_circle" id="second_circle">
+            <div class="point_circle">
+                <p class="twelve">60</p>
+                <p class="three">15</p>
+            </div>
+            <div class="circleCenter"></div>
+            <div class="red_center"></div>
+            <div class="second" id="secondTiming"></div>
+        </div>
+        <div id="score" class="score">00:00:00</div>
+        <div class="record" id="record"></div>
+        <div class="btn">
+            <canvas class="drawing" id="drawing1" class="btn1" width="60" height="60"></canvas>
+            <canvas class="drawing" id="drawing2" class="btn2" width="60" height="60"></canvas>
+        </div>
+        <div id="btn" class="btn">
+            <canvas class="drawing" id="drawing" width="60" height="60"></canvas>
+            <canvas id="circleBtn" class="circleBtn" width="100" height="100"></canvas>
+        </div>
+    </div>
+    <!--计时器-->
+    <div class="plate">
+        <div class="in_circle" id="downTimer">
+            <div class="point_circle">
+                <p class="twelve">60</p>
+                <p class="three">15</p>
+            </div>
+            <div class="circleCenter"></div>
+            <div class="red_center"></div>
+            <div class="hour" id="hourTiming"></div>
+        </div>
+        <div id="downCountScore" class="score">00:00</div>
+        <div class="ruler" id="ruler">
+            <div class="ring" id="ring"></div>
+        </div>
+    </div>
+
+
+    <!--底边栏-->
+    <div class="base">
+        <div class="fun" style="background-color: #000;">世界时钟</div>
+        <div class="fun">闹钟</div>
+        <div class="fun">秒表</div>
+        <div class="fun">计时器</div>
+    </div>
+    <script type="text/javascript" src="./new.js"></script>
+    <script type="text/javascript" src="./canvas.js"></script>
+</body>
+
+</html>

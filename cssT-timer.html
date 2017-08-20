@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="/home/wy/code/ding/T-timer/nowTIME.css">
+    
     <link rel="stylesheet" href="/home/wy/code/ding/T-timer/base.css">
+    <script src="/home/wy/code/ding/T-timer/T-timer.js"></script>
 </head>
 
 <body>
@@ -29,7 +31,52 @@
     </div>
 
     <!--秒表-->
-    <div>
+    <div class="big">
+        <div class="circle">
+            <div id="in_circle" class="in_circle">
+                <!--<i class="points"></i>-->
+                <div class="point_circle">
+                    <p class="twelve">60</p>
+                    <p class="three">15</p>
+                </div>
+                <div class="circleCenter"></div>
+                <div class="second" id="secondTiming"></div>
+                <div class="red_center"></div>
+            </div>
+            <div id="score" class="score">00:00:00</div>
+            <div class="record" id="record"></div>
+        </div>
+        <div class="btn">
+            <canvas class="drawing" id="drawing1" class="btn1" width="60" height="60"></canvas>
+            <canvas class="drawing" id="drawing2" class="btn2" width="60" height="60"></canvas>
+        </div>
+        <div  id="btn" class="btn">
+            <canvas class="drawing" id="drawing" width="60" height="60"></canvas>
+            <canvas  id="circleBtn" class="circleBtn" width="100" height="100"></canvas>
+        </div>
+    </div>
+    
+    <!--倒计时-->
+    <div class="downCountTimer">
+        <div class="circle">
+            <div class="downTimer" id="downTimer">
+                <div class="point_circle">
+                    <p class="twelve">60</p>
+                    <p class="three">15</p>
+                </div>
+                <div class="circleCenter"></div>
+                <div class="hour" id="hourTiming"></div>
+                <div class="red_center"></div>
+            </div>
+            <div id="downCountScore" class="score">00:00</div>
+        </div>
+        <div class="ruler" id="ruler">
+            <div class="ring" id="ring"></div>
+        </div>
+    </div>
+
+    <!--闹钟-->
+    <div class="clock">
         <div class="circle">
             <div class="in_circle">
                 <div class="point_circle">
@@ -48,11 +95,10 @@
     <!--底边栏-->
     <div class="base">
         <div class="fun">世界时钟</div>
-        <div class="fun">闹钟</div>
         <div class="fun">秒表</div>
         <div class="fun">计时器</div>
+        <div class="fun">闹钟</div>
     </div>
-    <script src="/home/wy/code/ding/T-timer/T-timer.js"></script>
+    
 </body>
-
 </html>

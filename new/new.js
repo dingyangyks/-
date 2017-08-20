@@ -1,21 +1,70 @@
 window.addEventListener('load', function () {
     var ruler = document.getElementById('ruler');
-    degree = ruler.offsetLeft;
-
-    timeGrid('in_circle');
+    degree = parseInt(window.getComputedStyle(ruler)['left']);
+    // 点击切换
+    toggle();
+    // 秒表和计时器创建刻度
+    timeGrid('second_circle');
     timeGrid('downTimer');
+    // 世界时钟
     nowTime();
     Move();
-    draw();
+    // 闹钟
+
+    // 秒表
     start();
     print();
     clear();
+    // 计时器
     downCount();
     drag();
-    // startDownCount();
+   
 })
 
-var degree = 0;
+var degree;
+var downDegree;
+
+// 点击切换
+function toggle() {
+    var baseplate = document.getElementsByClassName('plate');
+    var funPlate = document.getElementsByClassName('fun');
+    
+    for (var i = 0; i < funPlate.length; i++) {
+        funPlate[i].index = i;
+        funPlate[i].addEventListener('click', function () {
+            for(var i = 0; i < funPlate.length; i++) {
+                funPlate[i].style.backgroundColor = '#3c3c3c';
+            }
+            this.style.backgroundColor = '#000';
+
+            for(var i = 0; i < baseplate.length; i++){
+                baseplate[i].classList.remove('show');
+            }
+            baseplate[this.index].classList.add('show');
+        })
+    }
+}
+
+// 秒表和计时器创建刻度
+function timeGrid(idName) {
+    for (var i = 0; i < 60; i++) {
+        var plate = document.getElementById(idName);
+        var point = document.createElement('i');
+        point.classList.add('points');
+        plate.appendChild(point);
+    }
+
+    var timePoints = document.getElementsByClassName('points');
+    for (var i = 0; i < timePoints.length; i++) {
+        timePoints[i].style.transform = "rotate(" + i * 6 + "deg)";
+        if (i % 5 === 0) {
+            timePoints[i].style.backgroundColor = "#000";
+        }
+    }
+}
+
+// 世界时钟  获取当前时间
+var degree;
 var downDegree;
 
 // 获取当前时间 设置初始位置
@@ -34,11 +83,14 @@ function nowTime() {
     hourHand.style.transform = "rotate(" + nowHour * 30 + "deg)";
 }
 
-// 指针
+// 调整指针
 function Move() {
     var secondHand = document.getElementsByClassName('second')[0];
     var minutesHand = document.getElementsByClassName('minutes')[0];
     var hourHand = document.getElementsByClassName('hour')[0];
+    var secondHand_1 = document.getElementsByClassName('second')[1];
+    var minutesHand_1 = document.getElementsByClassName('minutes')[1];
+    var hourHand_1 = document.getElementsByClassName('hour')[1];
 
     setInterval(function () {
         // var odate = new Date('Wed Aug 16 2017 23:00:15 GMT+0800 (CST)');
@@ -54,49 +106,14 @@ function Move() {
         secondHand.style.transform = "rotate(" + PerSecond % 360 + "deg)";
         minutesHand.style.transform = "rotate(" + PerMinute % 360 + "deg)";
         hourHand.style.transform = "rotate(" + PerHour % 360 + "deg)";
+
+        secondHand_1.style.transform = "rotate(" + PerSecond % 360 + "deg)";
+        minutesHand_1.style.transform = "rotate(" + PerMinute % 360 + "deg)";
+        hourHand_1.style.transform = "rotate(" + PerHour % 360 + "deg)";
     }, 1000)
 }
 
 // 秒表
-function timeGrid(idName) {
-    for (var i = 0; i < 60; i++) {
-        var plate = document.getElementById(idName);
-        var point = document.createElement('i');
-        point.classList.add('points');
-        plate.appendChild(point);
-    }
-
-    var timePoints = document.getElementsByClassName('points');
-    for (var i = 0; i < timePoints.length; i++) {
-        timePoints[i].style.transform = "rotate(" + i * 6 + "deg)";
-        if (i % 5 === 0) {
-            timePoints[i].style.backgroundColor = "#000";
-        }
-    }
-}
-
-// 绘图
-function draw() {
-    var dom = document.getElementsByClassName('drawing');
-    for (var i = 0; i < 3; i++) {
-        ctx = dom[i].getContext('2d');
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "black";
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(5, 5, 50, 20);
-        ctx.fillRect(20, 25, 20, 25);
-    }
-    var dom1 = document.getElementsByClassName('circleBtn')[0];
-    var ctx1 = dom1.getContext('2d');
-    ctx1.shadowBlur = 10;
-    ctx1.shadowColor = "black";
-    ctx1.beginPath();
-    ctx1.lineWidth = 5;
-    ctx1.strokeStyle = "#fff";
-    ctx1.arc(50, 50, 40, 0, 2 * Math.PI, false);
-    ctx1.stroke();
-}
-
 // 开始计时
 var clickState = false;
 var timer_needle = null;
@@ -111,9 +128,18 @@ function start() {
     btn.addEventListener('click', timing);
 }
 
+function addZero(num) {
+    if (num < 10) {
+        return '0' + num;
+    } else {
+        return num;
+    }
+}
+
 function timing() {
     var secondTiming = document.getElementById('secondTiming');
     var changeScore = document.getElementById('score');
+    
     if (!clickState) {
         timer_count = setInterval(function () {
             x = x + 0.06;
@@ -128,6 +154,7 @@ function timing() {
                 time_min = time_min + 1;
             }
             changeScore.innerHTML = addZero(time_min) + ':' + addZero(time_s) + ':' + addZero(time_ms);
+            console.log(changeScore.innerHTML)
         }, 10)
         clickState = true;
     } else if (clickState) {
@@ -135,15 +162,6 @@ function timing() {
         clickState = false;
     }
 }
-
-function addZero(num) {
-    if (num < 10) {
-        return '0' + num;
-    } else {
-        return num;
-    }
-}
-
 
 // 打印
 function print() {
@@ -190,6 +208,7 @@ function clearFun() {
     record.style.display = 'none';
 }
 
+
 // 倒计时
 function downCount() {
     var ruler = document.getElementById('ruler');
@@ -206,17 +225,16 @@ function downCount() {
 function drag() {
     var oRing = document.getElementById('ring');
     oRing.addEventListener('touchmove', draging);
-    // oRing.addEventListener('touchend', dragEnd);
+    oRing.addEventListener('touchend', dragEnd);
 }
-
 
 function draging(event) {
     var plane_x = event.touches[0].clientX;
     var ruler = document.getElementById('ruler');
     ruler.style.left = degree + plane_x + 'px';
-    console.log(degree)
-    if (parseInt(ruler.style.left) >= 0) {
-        ruler.style.left = 0;
+    console.log(parseInt(ruler.style.left))
+    if (parseInt(ruler.style.left) >= -48) {
+        ruler.style.left = -48 + 'px';
     } else if (parseInt(ruler.style.left) <= degree) {
         ruler.style.left = degree + 'px';
     }
@@ -227,116 +245,52 @@ function draging(event) {
     hourTiming.style.transform = "rotate(" + downDegree + "deg)";
 }
 
+var degreeTimer = null;
+var scoreNum = 60;
 
-// var degreeTimer = null;
-// var scoreNum = 60;
-
-
-// function dragEnd() {
-//     clearInterval(degreeTimer);
-//     scoreNum = 60;
-//     degreeTimer = setInterval(function () {
-//         startDown_zhizheng();
-//         startDown_count();
-//         startDown_ruler();
-//     }, 1000);
-// }
+function dragEnd() {
+    clearInterval(degreeTimer);
+    scoreNum = 60;
+    degreeTimer = setInterval(function () {
+        startDown_zhizheng();
+        startDown_count();
+        // startDown_ruler();//尺缩
+    }, 1000);
+}
 
 
-// function startDown_zhizheng() {
-//     var hourTiming = document.getElementById('hourTiming');
-//     var startDeg = hourTiming.style.transform;
+function startDown_zhizheng() {
+    var hourTiming = document.getElementById('hourTiming');
+    var startDeg = hourTiming.style.transform;
     
-//     //指针倒转
-//     if (!downDegree) {
-//         return;
-//     }
-//     hourTiming.style.transform = "rotate(" + downDegree + "deg)";
-//     downDegree = (downDegree - 0.1).toFixed(1);
-//     // console.log(downDegree);
-//     if (parseInt(ruler.style.left) <= -270) {
-//         ruler.style.left = -270 + 'px';
-//     }
-//     if (downDegree <= 0) {
-//         clearInterval(degreeTimer);
-//     }
+    //指针倒转
+    if (!downDegree) {
+        return;
+    }
+    hourTiming.style.transform = "rotate(" + downDegree + "deg)";
+    downDegree = (downDegree - 0.1).toFixed(1);
+    // console.log(downDegree);
+    if (parseInt(ruler.style.left) <= -270) {
+        ruler.style.left = -270 + 'px';
+    }
+    if (downDegree <= 0) {
+        clearInterval(degreeTimer);
+    }
 
-// }
+}
 
-// var scoreNum = 60;
-// function startDown_count() {
-//     var numCount = document.getElementById("downCountScore");
-//     if (scoreNum === 0) {
-//         scoreNum = 60;
-//     }
-//     scoreNum -= 1;
-//     numCount.innerHTML = addZero(parseInt(downDegree / 6)) + ":" + addZero(scoreNum);
-//     if (scoreNum < 0) {
-//         scoreNum = 60;
-//     }
-//     if (numCount.innerHTML == "00:00") {
-//         clearInterval(degreeTimer);
-//     }
-// }
-
-
-// function startDown_ruler(){
-//     var ruler = document.getElementById('ruler');
-//     var x = parseInt(ruler.style.left);
-    
-//     ruler.style.transform = "translate(" + (x - 30) + "px)";
-//     // console.log(ruler.style.transform)
-//     // console.log(ruler.getComputerStyle.transform) 
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var numberTimer = null;
-// var scoreNum = 60;
-// function dragEnd() {
-//     numberTimer = setInterval(function () {
-//         var numCount = document.getElementById("downCountScore");
-//         if (scoreNum === 0) {
-//             scoreNum = 60;
-//         }
-//         scoreNum -= 1;
-//         numCount.innerHTML = addZero(parseInt(downDegree / 6)) + ":" + addZero(scoreNum);
-//         if (scoreNum < 0) {
-//             scoreNum = 60;
-//         }
-//         if (numCount.innerHTML == "00:00") {
-//             clearInterval(numberTimer);
-//         }
-//     }, 1000)
-// }
-
-// console.log(ruler.offsetLeft) //ruler.offsetLeft只显示整数
+var scoreNum = 60;
+function startDown_count() {
+    var numCount = document.getElementById("downCountScore");
+    if (scoreNum === 0) {
+        scoreNum = 60;
+    }
+    scoreNum -= 1;
+    numCount.innerHTML = addZero(parseInt(downDegree / 6)) + ":" + addZero(scoreNum);
+    if (scoreNum < 0) {
+        scoreNum = 60;
+    }
+    if (numCount.innerHTML == "00:00") {
+        clearInterval(degreeTimer);
+    }
+}
